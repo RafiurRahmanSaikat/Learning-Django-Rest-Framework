@@ -1,8 +1,5 @@
 from django.db.models import Max
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
 from rest_framework import generics
-from rest_framework.decorators import api_view
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -22,20 +19,6 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         if self.request.method == "POST":
             self.permission_classes = [IsAdminUser]
         return super().get_permissions()
-
-
-# class ProductListAPIView(generics.ListAPIView):
-#     queryset = Product.objects.all()
-#     serializer_class = ProductSerializer
-
-
-# class ProductCreateAPIView(generics.CreateAPIView):
-#     model = Product
-#     serializer_class = ProductSerializer
-
-#     def create(self, request, *args, **kwargs):
-#         print(request.data)
-#         return super().create(request, *args, **kwargs)
 
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
