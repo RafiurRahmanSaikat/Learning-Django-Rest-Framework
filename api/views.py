@@ -14,8 +14,8 @@ from .serializers import OrderSerializer, ProductSerializer, ProductsInfoSeriali
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    # filterset_fields = ["name", "price"]
     filterset_class = ProductFilter
+    search_fields = ["name", "description"]
 
     def get_permissions(self):
         self.permission_classes = [AllowAny]
