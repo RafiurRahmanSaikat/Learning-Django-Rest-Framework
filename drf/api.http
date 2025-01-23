@@ -30,6 +30,17 @@ Content-Type: application/json
 	"username": "admin",
 	"password": "test"
 }
+
+
+###? User's Order by Auth credentials
+GET http://localhost:8000/orders/ HTTP/1.1
+Content-Type: application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NjE4OTA1LCJpYXQiOjE3Mzc2MTg2MDUsImp0aSI6Ijc1YjU1MDI1ODAxNDRlODU4Mjc0MDc2ZjczZWI1YWQ4IiwidXNlcl9pZCI6MX0.3-dGWkjxTymUI8lu1iF2dhgkPK13fLIrRpyyDsGi8y4
+
+
+###? ALL User's Order
+GET http://localhost:8000/orders/ HTTP/1.1
+
 ###? GET Refresh Token
 POST http://localhost:8000/api/token/refresh/ HTTP/1.1
 Content-Type: application/json
