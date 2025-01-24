@@ -4,6 +4,8 @@ from .models import Order, OrderItem, Product
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    id = serializers.UUIDField(read_only=True)
+
     class Meta:
         model = Product
         fields = (
@@ -57,7 +59,41 @@ class OrderSerializer(serializers.ModelSerializer):
         )
 
 
+class OrderCreateSerializer(serializers.ModelSerializer):
+    class OrderItemSerializer(serializers.ModelSerializer):
+        # product = ProductSerializer(many=True)
+
+        class Meta:
+            model = OrderItem
+            fields = ("product", "quantity")
+
+    order_id = serializers.UUIDField(read_only=True)
+    items = OrderItemSerializer(many=True)
+
+    def create(self, validated_data):
+        orderItem_data = validated_data.pop("items")
+        order = Order.objects.create(**validated_data)
+
+        for item in orderItem_data:
+            OrderItem.objects.create(order=order, **item)
+
+        return order
+
+    class Meta:
+        model = Order
+        fields = (
+            "order_id",
+            "user",
+            "status",
+            "items",
+        )
+        extra_kwargs = {"user": {"read_only": True}}
+
+
 class ProductsInfoSerializer(serializers.Serializer):
     products = ProductSerializer(many=True)
     count = serializers.IntegerField()
     max_price = serializers.FloatField()
+
+
+# b8e9e958-bff3-474f-a503-675920ca51ac

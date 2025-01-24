@@ -9,7 +9,12 @@ from rest_framework.views import APIView
 
 from .filters import InStockFilterBackend, OrderFilter, ProductFilter
 from .models import Order, Product
-from .serializers import OrderSerializer, ProductSerializer, ProductsInfoSerializer
+from .serializers import (
+    OrderCreateSerializer,
+    OrderSerializer,
+    ProductSerializer,
+    ProductsInfoSerializer,
+)
 
 # Create your views here.
 
@@ -60,34 +65,19 @@ class OrderViewSet(viewsets.ModelViewSet):
     filterset_class = OrderFilter
     pagination_class = None
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == "create":
+            return OrderCreateSerializer
+        return OrderSerializer
+
     def get_queryset(self):
         orders = super().get_queryset()
         if not self.request.user.is_staff:
             orders = orders.filter(user=self.request.user)
         return orders
-
-
-# ! This is the old way of doing it we get filtered orders by user in the get_queryset method
-# @action(detail=False, methods=["get"], url_path="user-orders")
-# def user_orders(self, request):
-#     orders = self.get_queryset().filter(user=request.user)
-#     serializer = self.get_serializer(orders, many=True)
-#     return Response(serializer.data)
-
-
-# class UserOrderListAPIView(generics.ListAPIView):
-#     queryset = Order.objects.prefetch_related("items__product")
-#     serializer_class = OrderSerializer
-#     permission_classes = [IsAuthenticated]
-#     PageNumberPagination.page_size = 2
-
-#     def get_queryset(self):
-#         return super().get_queryset().filter(user=self.request.user)
-
-
-# class OrderListAPIView(generics.ListAPIView):
-#     queryset = Order.objects.prefetch_related("items__product")
-#     serializer_class = OrderSerializer
 
 
 class ProductInfoAPIView(APIView):
