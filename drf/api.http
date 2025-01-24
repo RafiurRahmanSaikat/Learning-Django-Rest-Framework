@@ -65,9 +65,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 	"description": "An amazing new TV"
 }
 
-###? User's Order by Auth credentials
-GET http://localhost:8000/orders/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzIyMjE5LCJpYXQiOjE3Mzc3MjE5MTksImp0aSI6ImQ4NGExZjA0ZTY2NjRmNTM4NGJiNDFiNDdlOWEyMWUyIiwidXNlcl9pZCI6MX0.VTNkFzDwovAjNyd-XwsvyoXoP5E2-RyxeOiz86VeNxE
 
 ###? POST Order
 POST http://localhost:8000/orders/ HTTP/1.1
@@ -87,6 +84,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiY
 		}
 	]
 }
+###? User's Order by Auth credentials
+GET http://localhost:8000/orders/47c344a4-2743-4b21-9ae7-488cf34c28aa HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzMzNTc5LCJpYXQiOjE3Mzc3MzMyNzksImp0aSI6IjNjNTQ3ZDYwMWMwODQ2NjdhMWEzOTRmZjEwN2FjYmM5IiwidXNlcl9pZCI6MX0.zzYASfarm5aUsnmYk8wkdxjJkEsuGnUQlDPbJegP7To
+###? Update a Order
+PUT  http://localhost:8000/orders/47c344a4-2743-4b21-9ae7-488cf34c28aa/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzMzNTc5LCJpYXQiOjE3Mzc3MzMyNzksImp0aSI6IjNjNTQ3ZDYwMWMwODQ2NjdhMWEzOTRmZjEwN2FjYmM5IiwidXNlcl9pZCI6MX0.zzYASfarm5aUsnmYk8wkdxjJkEsuGnUQlDPbJegP7To
+
+{
+	"status": "Pending"
+}
+###! Delete a Order
+
+DELETE   http://localhost:8000/orders/47c344a4-2743-4b21-9ae7-488cf34c28aa/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM3NzMzNTc5LCJpYXQiOjE3Mzc3MzMyNzksImp0aSI6IjNjNTQ3ZDYwMWMwODQ2NjdhMWEzOTRmZjEwN2FjYmM5IiwidXNlcl9pZCI6MX0.zzYASfarm5aUsnmYk8wkdxjJkEsuGnUQlDPbJegP7To
+
+
 
 ###? GET AccessToken
 POST http://localhost:8000/api/token/ HTTP/1.1
